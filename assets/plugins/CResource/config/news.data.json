@@ -8,7 +8,8 @@
             "published",
             "tv.view",
             "tv.like_up",
-            "tv.like_down"
+            "tv.like_down",
+			"date"
         ],
 		"display":"10",
         "tvList":"view,like_up,like_down",
@@ -21,7 +22,7 @@
     "idField": "id",
     "docURL":{
         "edit":"index.php?a=27&id=",
-        "new":"index.php?a=4"
+        "new":"index.php?a=4&pid="
     },
     "parentField": "parent",
     "renameField": {
@@ -58,6 +59,10 @@
         "pagetitle":{
             "name": "Заголовок",
             "options": "field:'pagetitle',width:280,align:'right',editor:{type:'validatebox',options:{required:true}}"
+        },
+		"date":{
+            "name": "Date",
+            "options": "field: 'date',editor:{type:'validatebox',options:{required:true}}"
         }
     }
 }

@@ -57,7 +57,9 @@
 </div>
 
 <script type="text/javascript">
+	var pager = <?=$jqname;?>('#dataGrid').datagrid().datagrid('getPager');
     var index = 0;
+
     function addPanel(id){
         index++;
         var url = window.location.href.replace(/#[^#]*$/, "");
@@ -66,7 +68,7 @@
             url = '<?=$docEditURL;?>' + id;
         }else{
             title = 'Новый документ';
-            url = '<?=$docNewURL;?>';
+            url = '<?=$docNewURL;?>'+'<?=$pid;?>';
         }
         <?=$jqname;?>('#tt').tabs('add',{
             title: title,
@@ -83,7 +85,6 @@
         }
     }
 
-    var pager = <?=$jqname;?>('#dataGrid').datagrid().datagrid('getPager');
     var editIndex = undefined;
     <?=$jqname;?>('#dataGrid').edatagrid({
             url: '<?=$listURL;?>',

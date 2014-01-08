@@ -60,8 +60,8 @@ class CRGrid extends CRcore{
             $data = array();
             $tpl = $this->loadTPLdata();
             $tmp = "?data={$this->_idConfig}&parent={$DocID}";
-            $data['docEditURL'] = "/".MGR_DIR."/".$this->getOptions(array('docURL','edit'),"index.php?a=27&id=");
-            $data['docNewURL'] = "/".MGR_DIR."/".$this->getOptions(array('docURL','new'),"index.php?a=4");
+            $data['docEditURL'] = MODX_BASE_URL."/".MGR_DIR."/".$this->getOptions(array('docURL','edit'),"index.php?a=27&id=");
+            $data['docNewURL'] = MODX_BASE_URL."/".MGR_DIR."/".$this->getOptions(array('docURL','new'),"index.php?a=4");
             $data['saveURL'] = $tpl['dir']."action.php{$tmp}&mode=save";
             $data['updateURL'] = $tpl['dir']."action.php{$tmp}&mode=update";
             $data['delURL'] = $tpl['dir']."action.php{$tmp}&mode=delete";
@@ -102,6 +102,7 @@ class CRGrid extends CRcore{
     private function gridData($data){
         $out = '';
         $data['idField'] = $this->getOptions('idField','id');
+		$data['pid'] = isset($_REQUEST['id'])?$_REQUEST['id']:'0';
         $grid = $this->getOptions('grid',array());
         foreach($grid as $item=>$value){
               $name = isset($value['name']) ? $value['name'] : $item;
@@ -117,7 +118,7 @@ class CRGrid extends CRcore{
             $modx = $this->_modx;
 
             $this->_template['jqname'] = '$'.$this->jqname;
-            $this->_template['dir'] = "/".str_replace(MODX_BASE_PATH,'',$this->_dir)."/";
+            $this->_template['dir'] = MODX_BASE_URL."/".str_replace(MODX_BASE_PATH,'',$this->_dir)."/";
 
             if(isset($modx->config['manager_language']) && file_exists(MODX_MANAGER_PATH."includes/lang/".$modx->config['manager_language'].".inc.php")) {
 
