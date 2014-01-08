@@ -47,7 +47,7 @@ switch($e->name){
 					document.getElementById("template").setProperty("name","template3");
 					document.getElementById("template").getParent().getParent().setStyle("display","none");
 					})</script>';
-            $output. = '<input type="hidden" name="template" value="'.$_REQUEST['table'].'">'.$script;
+            $output .= '<input type="hidden" name="template" value="'.$_REQUEST['table'].'">'.$script;
         }
         break;
     }	
