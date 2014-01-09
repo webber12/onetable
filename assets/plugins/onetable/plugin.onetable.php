@@ -2,9 +2,7 @@
 // @params &tmpl_ids=Templates ids comma separated;text;5,8
 // @events OnManagerPageInit, OnBeforeDocFormSave, OnDocFormPrerender,OnBeforeTVFormDelete,OnTVFormSave,OnTempFormSave
 
-if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
-
-//$tmpl_ids_array = explode(',',$tmpl_ids);
+if(!defined('MODX_BASE_PATH')){die ('What are you doing? Get out of here!');}
 
 include_once('class/onetable.php');
 $oT = new OneTable($modx, $params);
@@ -15,7 +13,7 @@ $evt = &$modx->event;
 $output = '';
 switch($evt->name){
     case 'OnTempFormSave':{
-        if(isset($evt->params['id'])&&in_array($evt->params['id'],$oT->tmpl_ids_array)){
+        if(isset($evt->params['id']) && in_array($evt->params['id'], $oT->tmpl_ids_array)){
             $oT->addTable($evt->params['id']);
         }
         break;
@@ -29,13 +27,9 @@ switch($evt->name){
         break;
     }	
     case 'OnBeforeDocFormSave':{
-        if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
+        if(isset($_POST['template']) && $oT->checkTemplate($_POST['template'])){
             $oT->api->setTable('table_'.$_POST['template']);
-        /*    if($evt->params['mode']=='upd'){
-                $oT->updateDoc($_POST);
-            }
-			*/
-            if($evt->params['mode']=='new'){
+            if($evt->params['mode'] == 'new'){
                 $oT->save2Doc($_POST);
             }			
         }
@@ -55,7 +49,7 @@ switch($evt->name){
         break;
     }	
     case 'OnManagerPageInit':{	
-        if($action==27 && isset($_REQUEST['table'])){
+        if($action == 27 && isset($_REQUEST['table'])){
             global $_lang, $_style;
             if($oT->checkTemplateById($_REQUEST['id'], $_REQUEST['table'])){
                 $tbl = (int)$_REQUEST['table'];
@@ -67,9 +61,9 @@ switch($evt->name){
                 die();
             }
         }
-		if($action==5&&isset($_REQUEST['table'])&&$_POST['mode'] == '27'){
-			if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
-				if (!$modx->hasPermission('save_document')) {
+		if($action == 5 && isset($_REQUEST['table']) && $_POST['mode'] == '27'){
+			if(isset($_POST['template']) && $oT->checkTemplate($_POST['template'])){
+				if (!$modx->hasPermission('save_document')){
 					include_once MODX_MANAGER_PATH."includes/error.class.inc.php";
 					$err = new errorHandler;
 					$err->setError(3,"You don't have enough privileges for this action!");
