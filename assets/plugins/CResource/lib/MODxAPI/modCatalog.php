@@ -2,8 +2,8 @@
 include_once(dirname(__FILE__)."/autoTable.abstract.php");
 
 class modCatalog extends autoTable{
-    public $table = "table_8";
-    public $alias_field = "alias";
+    protected $table = "table_8";
+    protected $alias_field = "alias";
 	
     private $alias_table=array('"'=>'_',"'"=>'_',' '=>'_','.'=>'_',','=>'_','а'=>'a','б'=>'b','в'=>'v',
 		'г'=>'g','д'=>'d','е'=>'e','ё'=>'e','ж'=>'zh','з'=>'z','и'=>'i','й'=>'y','к'=>'k',
@@ -115,7 +115,7 @@ class modCatalog extends autoTable{
         return $alias;
     }
 		
-    public function prepareDate($key,$value)
+    protected function prepareDate($key,$value)
     {
         if($value != '0'){
             $time = $this->modx->toTimeStamp($value);
