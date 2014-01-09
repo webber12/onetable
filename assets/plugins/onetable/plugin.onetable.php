@@ -30,12 +30,13 @@ switch($e->name){
     }	
     case 'OnBeforeDocFormSave':{
         if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
-            $DOC->table = 'table_'.$_POST['template'];
-            if($e->params['mode']=='upd'){
-                $oT->updateDoc($_POST,$DOC);
+            $oT->api->setTable('table_'.$_POST['template']);
+        /*    if($e->params['mode']=='upd'){
+                $oT->updateDoc($_POST);
             }
+			*/
             if($e->params['mode']=='new'){
-                $oT->save2Doc($_POST,$DOC);
+                $oT->save2Doc($_POST);
             }			
         }
         break;
@@ -49,15 +50,15 @@ switch($e->name){
 					document.getElementById("template").getParent().getParent().setStyle("display","none");
 					})</script>';
             $output .= '<input type="hidden" name="template" value="'.$_REQUEST['table'].'">'.$script;
-			$output .= '<input type="hidden" name="table" value="'.$_REQUEST['table'].'">';
+            $output .= '<input type="hidden" name="table" value="'.$_REQUEST['table'].'">';
         }
         break;
     }	
     case 'OnManagerPageInit':{	
-        if($action==27 && isset($_GET['table'])){
+        if($action==27 && isset($_REQUEST['table'])){
             global $_lang, $_style;
-            if($oT->checkTemplateById($_GET['id'], $_GET['table'])){
-                $tbl = (int)$_GET['table'];
+            if($oT->checkTemplateById($_REQUEST['id'], $_REQUEST['table'])){
+                $tbl = (int)$_REQUEST['table'];
                 $onetbl = $modx->getFullTableName('table_'.$tbl);
                 $manager_theme = $modx->config['manager_theme'];
                 include_once "header.inc.php";
@@ -66,6 +67,13 @@ switch($e->name){
                 die();
             }
         }
+		if($action==5&&isset($_REQUEST['table'])&&$_POST['mode'] == '27'){
+			if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
+			    $oT->api->setTable('table_'.$_POST['template']);
+                $oT->updateDoc($_POST);
+				die();
+			}
+		}
         break;
     }		
 	

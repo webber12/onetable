@@ -127,7 +127,6 @@ public function tableExists($table)
 public function createColumn($tv_id)
 {
     $tv_info = $this->getTVInfo($tv_id);
-    $tv_type = $this->getSQLType($tv_info['type'], $default='TEXT NULL');
     $tmpls = array();
     $sql = "SELECT templateid FROM ".$this->tv_tmpl_table." WHERE tmplvarid='".$tv_id."' AND templateid IN(".$this->tmpl_ids.")";
     $q = $this->modx->db->query($sql);
@@ -165,7 +164,6 @@ public function deleteColumn($tv_id)
         foreach ($tmpls as $tmpl){
             $table_name = $this->modx->db->config['table_prefix'].$this->tablePrefix.$tmpl;
             if($this->tableExists($table_name)){
-                $tv_sql = '';
                 if($this->columnExists($tv_info['name'], $table_name)){
                     $tv_sql = 'ALTER TABLE '.$table_name.' DROP `'. $tv_info['name'] .'`';
                     $q = $this->modx->db->query($tv_sql);
@@ -206,18 +204,18 @@ public function getTVNames($template_id)
     return $TVNames;
 }
 
-public function updateDoc($post, $DOC)
+public function updateDoc($post)
 {
     $data = $this->prepareData($_POST);
-    $edit = $DOC->edit($_POST['id'])->fromArray($data)->save();
+    $edit = $this->api->edit($_POST['id'])->fromArray($data)->save();
     echo 'updated';
     die();
 }
 
-public function save2Doc($post, $DOC)
+public function save2Doc($post)
 {
     $data = $this->prepareData($_POST);
-    $edit = $DOC->create($data)->save();
+    $edit = $this->api->create($data)->save();
     echo 'saved';
     die();
 }

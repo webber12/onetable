@@ -56,9 +56,8 @@ if ($action == 27) {
     include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
     $udperms = new udperms();
     $udperms->user = $modx->getLoginUserID();
-    $udperms->document = $id;
+    $udperms->document = $modx->config['site_start'];
     $udperms->role = $_SESSION['mgrRole'];
-
     if (!$udperms->checkPermissions()) {
 ?>
 <br /><br />
