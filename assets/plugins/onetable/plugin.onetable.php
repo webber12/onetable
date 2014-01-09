@@ -11,31 +11,31 @@ $oT = new OneTable($modx, $params);
 $DOC = $oT->api;
 
 
-$e = &$modx->event;
+$evt = &$modx->event;
 $output = '';
-switch($e->name){
+switch($evt->name){
     case 'OnTempFormSave':{
-        if(isset($modx->event->params['id'])&&in_array($modx->event->params['id'],$oT->tmpl_ids_array)){
-            $oT->addTable($modx->event->params['id']);
+        if(isset($evt->params['id'])&&in_array($evt->params['id'],$oT->tmpl_ids_array)){
+            $oT->addTable($evt->params['id']);
         }
         break;
     }	
     case 'OnTVFormSave':{
-        $oT->createColumn($modx->event->params['id']);
+        $oT->createColumn($evt->params['id']);
         break;
     }
     case 'OnBeforeTVFormDelete':{
-        $oT->deleteColumn($modx->event->params['id']);
+        $oT->deleteColumn($evt->params['id']);
         break;
     }	
     case 'OnBeforeDocFormSave':{
         if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
             $oT->api->setTable('table_'.$_POST['template']);
-        /*    if($e->params['mode']=='upd'){
+        /*    if($evt->params['mode']=='upd'){
                 $oT->updateDoc($_POST);
             }
 			*/
-            if($e->params['mode']=='new'){
+            if($evt->params['mode']=='new'){
                 $oT->save2Doc($_POST);
             }			
         }
@@ -69,6 +69,12 @@ switch($e->name){
         }
 		if($action==5&&isset($_REQUEST['table'])&&$_POST['mode'] == '27'){
 			if(isset($_POST['template'])&&$oT->checkTemplate($_POST['template'])){
+				if (!$modx->hasPermission('save_document')) {
+					include_once MODX_MANAGER_PATH."includes/error.class.inc.php";
+					$err = new errorHandler;
+					$err->setError(3,"You don't have enough privileges for this action!");
+					$err->dumpError();
+				}
 			    $oT->api->setTable('table_'.$_POST['template']);
                 $oT->updateDoc($_POST);
 				die();
@@ -81,4 +87,4 @@ switch($e->name){
         break;
     }
 	
-$e->output($output);
+$evt->output($output);
