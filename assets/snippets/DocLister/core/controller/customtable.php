@@ -175,12 +175,11 @@ class customtableDocLister extends DocLister
         $sanitarInIDs = $this->sanitarIn($this->IDs);
         if ($sanitarInIDs != "''" || $this->getCFGDef('ignoreEmpty', '0')) {
             $where = $this->getCFGDef('addWhereList', '');
-			$where = ($where ? $where . ' AND ' : '') . $this->_filters['where'];
-			$where = rtrim($where, " AND ");
+            $where = ($where ? $where . ' AND ' : '') . $this->_filters['where'];
+            $where = rtrim($where, " AND ");
 			
             if ($where != '') {
-            /*    $where = array($where);*/
-				$where = explode(" AND ", $where);
+                $where = explode(" AND ", $where);
             }
             if($sanitarInIDs != "''"){
                 $where[] = "{$this->getPK()} IN ({$sanitarInIDs})";
@@ -205,16 +204,15 @@ class customtableDocLister extends DocLister
     public function getChildrenCount()
     {
         $where = $this->getCFGDef('addWhereList', '');
-		$where = ($where ? $where . ' AND ' : '') . $this->_filters['where'];
-		$where = rtrim($where, " AND ");
+        $where = ($where ? $where . ' AND ' : '') . $this->_filters['where'];
+        $where = rtrim($where, " AND ");
 		
         if(!empty($where)){
             $where = "WHERE ".$where;
         }
 			
         $fields = "count(`ct`.`{$this->getPK()}`) as `count`";
-		
-		
+				
         $rs = $this->dbQuery("SELECT {$fields} FROM {$this->table} ct {$where}");
         return $this->modx->db->getValue($rs);
     }
