@@ -18,11 +18,11 @@ class ct_DL_filter extends filterDocLister{
     }
 
     public function get_where(){
-		return $this->build_sql_where($this->getTableAlias(), $this->field, $this->operator, $this->value);
-	}
+        return $this->build_sql_where($this->getTableAlias(), $this->field, $this->operator, $this->value);
+    }
 
-	public function get_join(){
-		return '';
+    public function get_join(){
+        return '';
 	}
 }
 ?>
