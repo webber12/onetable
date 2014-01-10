@@ -9,7 +9,7 @@
             var y = date.getFullYear();
             var m = date.getMonth()+1;
             var d = date.getDate();
-            return y + '-' + (m<10?('0'+m):m) + '-' + (d<10?('0'+d):d);
+            return (d<10?('0'+d):d) + '.' + (m<10?('0'+m):m) + '.' + y;
         },
         parser:function(s){
             if (!s) return new Date();
@@ -50,9 +50,11 @@
         <a href="#" class="easyui-linkbutton" onclick="addBtn()" iconCls="icon-add" plain="true"> Добавить</a>
         <a href="#" class="easyui-linkbutton" onclick="editBtn()" iconCls="icon-edit" plain="true"> Редактировать</a>
         <a href="#" class="easyui-linkbutton"  iconCls="icon-remove" plain="true" onclick="javascript:<?=$jqname;?>('#dataGrid').edatagrid('destroyRow')"> Удалить</a>
-        <span style="margin-left:20px";>&nbsp;</span>
-        <input class="textsearch" style="width:180px">
-        <a href="#" class="easyui-linkbutton" onclick="findBtn()" iconCls="icon-search">Найти</a>
+    </div>
+	<div>
+		id <input id="id" style="width:80px">
+        заголовок <input id="pagetitle" style="width:80px">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>
     </div>
 </div>
 
@@ -129,7 +131,11 @@
     }
 
     function findBtn(){
-        alert('Запустить поиск LIKE');
+	    alert('Будем искать');
+	    <?=$jqname;?>('#dataGrid').datagrid('load',{
+            id: $('#id').val(),
+            pagetitle: $('#pagetitle').val()
+        });
     }
 </script>
 

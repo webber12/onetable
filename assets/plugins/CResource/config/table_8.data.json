@@ -1,0 +1,57 @@
+{
+    "DocLister":{
+        "controller": "customtable",
+        "table" : "table_8",
+        "api": [
+			"id",
+            "pagetitle",
+			"date",
+			"published",
+			"test",
+			"view"
+        ],
+        "dateSource" : "createdon",
+		"dateFormat" : "%d.%m.%Y",
+		"display":"10",
+		"debug":"0",
+        "ignoreEmpty" : "1",
+        "idType":"parents"
+    },
+    "table": "table_8",
+    "class": "modCatalog",
+    "idField": "id",
+    "docURL":{
+		"edit":"index.php?a=27&table=8&id=",
+        "new":"index.php?a=4&table=8&pid="
+    },
+    "parentField": "parent",
+    "renameField": {
+        "/^tv_(.*)$/": "1"
+    },
+    "rules":{
+        "template" : "9"
+    },
+    "grid" : {
+        "id" : {
+            "name":"ID",
+            "options": "field:'id',width:40"
+        },
+        "pagetitle":{
+            "name": "Название",
+            "options": "field: 'pagetitle', width:250,editor:{type:'validatebox',options:{required:true}}"
+        },
+		"view":{
+            "name": "Просмотры",
+            "options": "field: 'view',editor:{type:'validatebox',options:{required:true}}"
+        },
+		"test":{
+            "name": "Картинка",
+            "options": "field: 'test',editor:{type:'validatebox',options:{required:true}}"
+        },
+		"date":{
+            "name": "Date",
+            "options": "field: 'date', width:100,editor:{type:'datebox',options:{required:true}}"
+        }
+		
+    }
+}

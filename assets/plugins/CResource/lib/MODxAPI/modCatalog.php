@@ -40,8 +40,33 @@ class modCatalog extends autoTable{
         return $this;
     }
 	
+	public function edit($id)
+	{
+		$this->newDoc = false;
+		$this->id = $id;
+		$this->field=array();
+		$this->set=array();
+		
+		if(isset($_GET['data'])){
+            $this->setTable($this->modx->db->escape($_GET['data']));
+		}		
+		$result = $this->query("SELECT * from {$this->makeTable($this->table)} where id=".(int)$id);
+		$this->fromArray($this->modx->db->getRow($result));
+		unset($this->field['id']);
+		return $this;
+	}
+	
     public function save($fire_events = null,$clearCache = false)
     {	
+	    if(isset($_GET['data'])){
+            $this->setTable($this->modx->db->escape($_GET['data']));
+		}
+		if(isset($_GET['parent'])){
+            $this->set('parent',(int)$_GET['parent']);
+		}
+		if(isset($_POST['parent'])){
+            $this->set('parent',(int)$_POST['parent']);
+		}
         $fld = $this->toArray();
         $this->set($this->alias_field, $this->getAlias());
         $this->set('editedon', time());
@@ -74,6 +99,28 @@ class modCatalog extends autoTable{
         }
         return $this->id;
     }
+	
+	public function delete($ids,$fire_events = null){
+	    $_ids = $this->cleanIDs($ids, ',', '0');
+        if(isset($_GET['data'])){
+        $this->table=$this->modx->db->escape($_GET['data']);
+		    try{
+			    if(is_array($_ids) && $_ids!=array()){
+			    /*	$this->invokeEvent('OnBeforeEmptyTrash',array(
+				    	"ids"=>$_ids
+				    ),$fire_events);*/
+		    
+			    	$id = $this->sanitarIn($_ids);
+			    	$this->query("DELETE from {$this->makeTable($this->table)} where id IN ({$id})");
+				/*
+			    	$this->invokeEvent('OnEmptyTrash',array(
+			    		"ids"=>$_ids
+			    	),$fire_events);*/
+		    	} else throw new Exception('Invalid IDs list for delete: <pre>'.print_r($ids,1).'</pre> please, check ignore list: <pre>'.print_r($ignore,1).'</pre>');
+	    	}catch(Exception $e){ die($e->getMessage()); }
+		}
+		return $this;
+	}	
 	
     private function getAlias()
     {
