@@ -67,5 +67,40 @@ class CRdata extends CRcore{
             }
         }
         return $out;
+    }	
+	private function extractFieldsForSearch($data){
+		$rename = $this->getOptions('renameSearch', null);
+		$filtered_data=array();
+		if(is_array($rename)){
+            foreach($rename as $rules=>$id){
+                $out = array();
+                if(is_array($data)){
+                    foreach($data as $key => $value){
+						$new_name=$this->_renameData($rules, $id, $key);
+						if($new_name != $key){
+							$filtered_data[$new_name] = $value;
+						}
+                    }
+                }
+            }
+        }
+        return $filtered_data;
+	}
+    public function makeFilters($data){
+        $search_fields = $this->getOptions('searchFields',array());
+		$filters = array();
+
+        $filter_fields = $this->extractFieldsForSearch($data);
+        if(is_array($filter_fields) && !empty($filter_fields)){
+            foreach($filter_fields as $key => $value){
+                if($value != ''){
+                    $type = isset($search_fields[$key]['filtertype']) ? $search_fields[$key]['filtertype'] : 'eq';
+					$name = isset($search_fields[$key]['dbname']) ? $search_fields[$key]['dbname'] : $key;
+                    $filters[] = 'ct:'.$name.':'.$type.':'.$value;
+                }
+            }
+        }
+    return $filters;		
     }
+	
 }

@@ -110,6 +110,8 @@ class CRGrid extends CRcore{
               $out .= "<th data-options=\"{$options}\" sortable=\"true\">{$name}</th>";
         }
         $data['header'] = $out;
+		$data['searchScripts'] = $this->makeSearchScripts();
+		$data['searchFields'] = $this->makeSearchFields();
         return $this->template('grid',$data);
     }
 
@@ -158,4 +160,34 @@ class CRGrid extends CRcore{
         }
         return $out;
     }
+	private function makeSearchScripts(){
+		$searchFields = $this->getOptions('searchFields',array());
+		$searchScripts = '';
+		$searchScript = array();
+		if(!empty($searchFields)){
+			foreach($searchFields as $key => $value){
+				$searchScript[] = 'search_'.$key.': $'.$this->jqname.'(\'#search_'.$key.'\').val()';
+			}
+			$searchScripts = implode(',',$searchScript);
+		}
+		if($searchScripts != ''){
+			$searchScripts = '$'.$this->jqname.'(\'#dataGrid\').datagrid(\'load\',{'.$searchScripts.'});';
+		}
+		return $searchScripts;
+	}
+	private function makeSearchFields(){
+		$searchFields = $this->getOptions('searchFields',array());
+		$searchFld = array();
+		$searchFlds = '';
+		if(!empty($searchFields)){
+			foreach($searchFields as $key => $value){
+				$searchFld[] = $value['name'].' <input id="search_'.$key.'" style="width:100px"> ';
+			}
+			$searchFlds = implode('',$searchFld);
+		}
+		if($searchFlds != ''){
+			$searchFlds .= '<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>';
+		}
+		return $searchFlds;
+	}
 }

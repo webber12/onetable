@@ -27,6 +27,9 @@
     "renameField": {
         "/^tv_(.*)$/": "1"
     },
+	"renameSearch": {
+        "/^search_(.*)$/": "1"
+    },
     "rules":{
         "template" : "13"
     },
@@ -48,5 +51,21 @@
             "options": "field: 'date', width:100,editor:{type:'datebox',options:{required:true}}"
         }
 		
-    }
+    },
+	"searchFields" : {
+		"idmin":{
+			"name":"ID от",
+			"filtertype":"egt",
+			"dbname":"id"
+		},
+		"idmax":{
+			"name":"ID до",
+			"filtertype":"elt",
+			"dbname":"id"
+		},
+	    "pagetitle":{
+			"name":"Заголовок",
+			"filtertype":"like"
+		}
+	}
 }

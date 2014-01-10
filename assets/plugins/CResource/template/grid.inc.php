@@ -52,9 +52,7 @@
         <a href="#" class="easyui-linkbutton"  iconCls="icon-remove" plain="true" onclick="javascript:<?=$jqname;?>('#dataGrid').edatagrid('destroyRow')"> Удалить</a>
     </div>
 	<div>
-		id <input id="id" style="width:80px">
-        заголовок <input id="pagetitle" style="width:80px">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>
+		<?=$searchFields;?>
     </div>
 </div>
 
@@ -131,11 +129,7 @@
     }
 
     function findBtn(){
-	    alert('Будем искать');
-	    <?=$jqname;?>('#dataGrid').datagrid('load',{
-            id: $('#id').val(),
-            pagetitle: $('#pagetitle').val()
-        });
+	    <?=$searchScripts;?>
     }
 </script>
 
