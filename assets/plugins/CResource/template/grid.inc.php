@@ -51,7 +51,7 @@
         <a href="#" class="easyui-linkbutton" onclick="editBtn()" iconCls="icon-edit" plain="true"> Редактировать</a>
         <a href="#" class="easyui-linkbutton"  iconCls="icon-remove" plain="true" onclick="javascript:<?=$jqname;?>('#dataGrid').edatagrid('destroyRow')"> Удалить</a>
     </div>
-	<div>
+	<div class="filters">
 		<?=$searchFields;?>
     </div>
 </div>
