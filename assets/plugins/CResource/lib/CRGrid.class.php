@@ -160,34 +160,35 @@ class CRGrid extends CRcore{
         }
         return $out;
     }
-	private function makeSearchScripts(){
-		$searchFields = $this->getOptions('searchFields',array());
-		$searchScripts = '';
-		$searchScript = array();
-		if(!empty($searchFields)){
-			foreach($searchFields as $key => $value){
-				$searchScript[] = 'search_'.$key.': $'.$this->jqname.'(\'#search_'.$key.'\').val()';
-			}
-			$searchScripts = implode(',',$searchScript);
-		}
-		if($searchScripts != ''){
-			$searchScripts = '$'.$this->jqname.'(\'#dataGrid\').datagrid(\'load\',{'.$searchScripts.'});';
-		}
-		return $searchScripts;
-	}
-	private function makeSearchFields(){
-		$searchFields = $this->getOptions('searchFields',array());
-		$searchFld = array();
+    private function makeSearchScripts(){
+        $searchFields = $this->getOptions('searchFields',array());
+        $searchScripts = '';
+        $tmp = array();
+        if(!empty($searchFields)){
+            foreach($searchFields as $key => $value){
+                $tmp[] = 'search_'.$key.': $'.$this->jqname.'(\'#search_'.$key.'\').val()';
+            }
+            $searchScripts = implode(',',$tmp);
+        }
+        if($searchScripts != ''){
+            $searchScripts = '$'.$this->jqname.'(\'#dataGrid\').datagrid(\'load\',{'.$searchScripts.'});';
+        }
+        return $searchScripts;
+    }
+    private function makeSearchFields(){
+        $searchFields = $this->getOptions('searchFields',array());
 		$searchFlds = '';
-		if(!empty($searchFields)){
-			foreach($searchFields as $key => $value){
-				$searchFld[] = $value['name'].' <input id="search_'.$key.'" style="width:100px"> ';
-			}
-			$searchFlds = implode('',$searchFld);
-		}
-		if($searchFlds != ''){
-			$searchFlds .= '<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>';
-		}
-		return $searchFlds;
-	}
+        $tmp = array();
+        if(!empty($searchFields)){
+            foreach($searchFields as $key => $value){
+                $tmp[] = '<label>'.$value['name'].' <input id="search_'.$key.'" style="width:100px"></label>';
+            }
+            $searchFlds = implode('',$tmp);
+        }
+        if($searchFlds != ''){
+            $searchFlds .= '<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>';
+        }
+        return $searchFlds;
+    }
+	
 }

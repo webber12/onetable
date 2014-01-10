@@ -100,7 +100,7 @@ class CRdata extends CRcore{
                 }
             }
         }
-    return $filters;		
+        return $filters;		
     }
 	
 }
