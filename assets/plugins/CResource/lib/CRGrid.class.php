@@ -110,8 +110,8 @@ class CRGrid extends CRcore{
               $out .= "<th data-options=\"{$options}\" sortable=\"true\">{$name}</th>";
         }
         $data['header'] = $out;
-		$data['searchScripts'] = $this->makeSearchScripts();
-		$data['searchFields'] = $this->makeSearchFields();
+		$data['searchData'] = $this->makeSearchData();
+	//	$data['searchFields'] = $this->makeSearchFields();
         return $this->template('grid',$data);
     }
 
@@ -160,35 +160,27 @@ class CRGrid extends CRcore{
         }
         return $out;
     }
-    private function makeSearchScripts(){
+    private function makeSearchData($searchScripts = '',$searchFlds = ''){
         $searchFields = $this->getOptions('searchFields',array());
-        $searchScripts = '';
         $tmp = array();
+		$tmp2 = array();
         if(!empty($searchFields)){
             foreach($searchFields as $key => $value){
                 $tmp[] = 'search_'.$key.': $'.$this->jqname.'(\'#search_'.$key.'\').val()';
+				$tmp2[] = '<label>'.$value['name'].' <input id="search_'.$key.'" style="width:100px"></label>';
             }
             $searchScripts = implode(',',$tmp);
+			$searchFlds = implode('',$tmp2);
         }
         if($searchScripts != ''){
             $searchScripts = '$'.$this->jqname.'(\'#dataGrid\').datagrid(\'load\',{'.$searchScripts.'});';
         }
-        return $searchScripts;
-    }
-    private function makeSearchFields(){
-        $searchFields = $this->getOptions('searchFields',array());
-		$searchFlds = '';
-        $tmp = array();
-        if(!empty($searchFields)){
-            foreach($searchFields as $key => $value){
-                $tmp[] = '<label>'.$value['name'].' <input id="search_'.$key.'" style="width:100px"></label>';
-            }
-            $searchFlds = implode('',$tmp);
-        }
-        if($searchFlds != ''){
+		if($searchFlds != ''){
             $searchFlds .= '<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>';
         }
-        return $searchFlds;
+		$searchData['scripts']=$searchScripts;
+		$searchData['fields']=$searchFlds;
+        return $searchData;
     }
 	
 }

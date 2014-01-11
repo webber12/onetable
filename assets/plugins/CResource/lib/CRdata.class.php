@@ -68,10 +68,9 @@ class CRdata extends CRcore{
         }
         return $out;
     }	
-	private function extractFieldsForSearch($data){
-		$rename = $this->getOptions('renameSearch', null);
-		$filtered_data=array();
-		if(is_array($rename)){
+	private function extractByKeyRules($data,$filtered_data=array()){
+		$rename = $this->getOptions('renameSearch', false);
+		if($rename && is_array($rename)){
             foreach($rename as $rules=>$id){
                 $out = array();
                 if(is_array($data)){
@@ -86,16 +85,14 @@ class CRdata extends CRcore{
         }
         return $filtered_data;
 	}
-    public function makeFilters($data){
+    public function makeFilters($data,$filters = array()){
         $search_fields = $this->getOptions('searchFields',array());
-		$filters = array();
-
-        $filter_fields = $this->extractFieldsForSearch($data);
+        $filter_fields = $this->extractByKeyRules($data);
         if(is_array($filter_fields) && !empty($filter_fields)){
             foreach($filter_fields as $key => $value){
                 if($value != ''){
-                    $type = isset($search_fields[$key]['filtertype']) ? $search_fields[$key]['filtertype'] : 'eq';
-					$name = isset($search_fields[$key]['dbname']) ? $search_fields[$key]['dbname'] : $key;
+					$type=$this->getOptions('searchtype','eq',$search_fields[$key]);
+					$name=$this->getOptions('dbname',$key,$search_fields[$key]);
                     $filters[] = 'ct:'.$name.':'.$type.':'.$value;
                 }
             }

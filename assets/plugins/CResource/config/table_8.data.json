@@ -28,6 +28,9 @@
     "renameField": {
         "/^tv_(.*)$/": "1"
     },
+	"renameSearch": {
+        "/^search_(.*)$/": "1"
+    },
     "rules":{
         "template" : "9"
     },
@@ -51,7 +54,12 @@
 		"date":{
             "name": "Date",
             "options": "field: 'date', width:100,editor:{type:'datebox',options:{required:true}}"
-        }
-		
-    }
+        }	
+    },
+	"searchFields" : {
+	    "pagetitle":{
+			"name":"Заголовок",
+			"searchtype":"like"
+		}
+	}
 }

@@ -55,17 +55,17 @@
 	"searchFields" : {
 		"idmin":{
 			"name":"ID от",
-			"filtertype":"egt",
+			"searchtype":"egt",
 			"dbname":"id"
 		},
 		"idmax":{
 			"name":"ID до",
-			"filtertype":"elt",
+			"searchtype":"elt",
 			"dbname":"id"
 		},
 	    "pagetitle":{
 			"name":"Заголовок",
-			"filtertype":"like"
+			"searchtype":"like"
 		}
 	}
 }

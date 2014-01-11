@@ -52,7 +52,7 @@
         <a href="#" class="easyui-linkbutton"  iconCls="icon-remove" plain="true" onclick="javascript:<?=$jqname;?>('#dataGrid').edatagrid('destroyRow')"> Удалить</a>
     </div>
 	<div class="filters">
-		<?=$searchFields;?>
+		<?=$searchData['fields'];?>
     </div>
 </div>
 
@@ -129,7 +129,7 @@
     }
 
     function findBtn(){
-	    <?=$searchScripts;?>
+	    <?=$searchData['scripts'];?>
     }
 </script>
 
