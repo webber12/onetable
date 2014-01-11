@@ -67,37 +67,37 @@ class CRdata extends CRcore{
             }
         }
         return $out;
-    }	
-	private function extractByKeyRules($data,$filtered_data=array()){
-		$rename = $this->getOptions('renameSearch', false);
-		if($rename && is_array($rename)){
+    }
+    private function extractByKeyRules($data, $filtered_data = array()){
+        $rename = $this->getOptions('renameSearch', false);
+        if($rename && is_array($rename)){
             foreach($rename as $rules=>$id){
                 $out = array();
                 if(is_array($data)){
                     foreach($data as $key => $value){
-						$new_name=$this->_renameData($rules, $id, $key);
-						if($new_name != $key){
-							$filtered_data[$new_name] = $value;
-						}
+                        $new_name=$this->_renameData($rules, $id, $key);
+                        if($new_name != $key){
+                            $filtered_data[$new_name] = $value;
+                        }
                     }
                 }
             }
         }
         return $filtered_data;
-	}
-    public function makeFilters($data,$filters = array()){
-        $search_fields = $this->getOptions('searchFields',array());
+    }
+    public function makeFilters($data, $filters = array()){
+        $search_fields = $this->getOptions('searchFields', array());
         $filter_fields = $this->extractByKeyRules($data);
         if(is_array($filter_fields) && !empty($filter_fields)){
             foreach($filter_fields as $key => $value){
                 if($value != ''){
-					$type=$this->getOptions('searchtype','eq',$search_fields[$key]);
-					$name=$this->getOptions('dbname',$key,$search_fields[$key]);
+                    $type=$this->getOptions('searchtype', 'eq', $search_fields[$key]);
+                    $name=$this->getOptions('dbname', $key, $search_fields[$key]);
                     $filters[] = 'ct:'.$name.':'.$type.':'.$value;
                 }
             }
         }
-        return $filters;		
+        return $filters;
     }
-	
+
 }

@@ -3,16 +3,16 @@
         "controller": "customtable",
         "table" : "table_14",
         "api": [
-			"id",
+            "id",
             "pagetitle",
-			"date",
-			"published",
-			"category"
+            "date",
+            "published",
+            "category"
         ],
         "dateSource" : "createdon",
-		"dateFormat" : "%d.%m.%Y",
-		"display":"10",
-		"debug":"0",
+        "dateFormat" : "%d.%m.%Y",
+        "display":"10",
+        "debug":"0",
         "ignoreEmpty" : "1",
         "idType":"parents"
     },
@@ -20,14 +20,14 @@
     "class": "modCatalog",
     "idField": "id",
     "docURL":{
-		"edit":"index.php?a=27&table=14&id=",
+        "edit":"index.php?a=27&table=14&id=",
         "new":"index.php?a=4&table=14&pid="
     },
     "parentField": "parent",
     "renameField": {
         "/^tv_(.*)$/": "1"
     },
-	"renameSearch": {
+    "renameSearch": {
         "/^search_(.*)$/": "1"
     },
     "rules":{
@@ -42,30 +42,29 @@
             "name": "Название",
             "options": "field: 'pagetitle', width:250,editor:{type:'validatebox',options:{required:true}}"
         },
-		"category":{
+        "category":{
             "name": "Категория",
             "options": "field: 'category',editor:{type:'validatebox',options:{required:true}}"
         },
-		"date":{
+        "date":{
             "name": "Date",
             "options": "field: 'date', width:100,editor:{type:'datebox',options:{required:true}}"
         }
-		
     },
-	"searchFields" : {
-		"idmin":{
-			"name":"ID от",
-			"searchtype":"egt",
-			"dbname":"id"
-		},
-		"idmax":{
-			"name":"ID до",
-			"searchtype":"elt",
-			"dbname":"id"
-		},
-	    "pagetitle":{
-			"name":"Заголовок",
-			"searchtype":"like"
-		}
-	}
+    "searchFields" : {
+        "idmin": {
+            "name" : "ID от",
+            "searchtype" : "egt",
+            "dbname" : "id"
+        },
+        "idmax": {
+            "name":"ID до",
+            "searchtype" : "elt",
+            "dbname" : "id"
+        },
+        "pagetitle": {
+            "name" : "Заголовок",
+            "searchtype" : "like"
+        }
+    }
 }

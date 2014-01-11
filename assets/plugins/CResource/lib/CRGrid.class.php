@@ -160,27 +160,27 @@ class CRGrid extends CRcore{
         }
         return $out;
     }
-    private function makeSearchData($searchScripts = '',$searchFlds = ''){
-        $searchFields = $this->getOptions('searchFields',array());
+    private function makeSearchData($searchScripts = '', $searchFlds = ''){
+        $searchFields = $this->getOptions('searchFields', array());
         $tmp = array();
-		$tmp2 = array();
+        $tmp2 = array();
         if(!empty($searchFields)){
             foreach($searchFields as $key => $value){
                 $tmp[] = 'search_'.$key.': $'.$this->jqname.'(\'#search_'.$key.'\').val()';
-				$tmp2[] = '<label>'.$value['name'].' <input id="search_'.$key.'" style="width:100px"></label>';
+                $tmp2[] = '<label>'.$value['name'].' <input id="search_'.$key.'" style="width:100px"></label>';
             }
-            $searchScripts = implode(',',$tmp);
-			$searchFlds = implode('',$tmp2);
+            $searchScripts = implode(',', $tmp);
+            $searchFlds = implode('', $tmp2);
         }
         if($searchScripts != ''){
             $searchScripts = '$'.$this->jqname.'(\'#dataGrid\').datagrid(\'load\',{'.$searchScripts.'});';
         }
-		if($searchFlds != ''){
+        if($searchFlds != ''){
             $searchFlds .= '<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="findBtn()">Найти</a>';
         }
-		$searchData['scripts']=$searchScripts;
-		$searchData['fields']=$searchFlds;
+        $searchData['scripts']=$searchScripts;
+        $searchData['fields']=$searchFlds;
         return $searchData;
     }
-	
+
 }

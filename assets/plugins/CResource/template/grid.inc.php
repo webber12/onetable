@@ -51,13 +51,13 @@
         <a href="#" class="easyui-linkbutton" onclick="editBtn()" iconCls="icon-edit" plain="true"> Редактировать</a>
         <a href="#" class="easyui-linkbutton"  iconCls="icon-remove" plain="true" onclick="javascript:<?=$jqname;?>('#dataGrid').edatagrid('destroyRow')"> Удалить</a>
     </div>
-	<div class="filters">
-		<?=$searchData['fields'];?>
+    <div class="filters">
+        <?=$searchData['fields'];?>
     </div>
 </div>
 
 <script type="text/javascript">
-	var pager = <?=$jqname;?>('#dataGrid').datagrid().datagrid('getPager');
+    var pager = <?=$jqname;?>('#dataGrid').datagrid().datagrid('getPager');
     var index = 0;
 
     function addPanel(id){
@@ -129,7 +129,6 @@
     }
 
     function findBtn(){
-	    <?=$searchData['scripts'];?>
+        <?=$searchData['scripts'];?>
     }
 </script>
-
