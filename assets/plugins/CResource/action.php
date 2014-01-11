@@ -81,13 +81,13 @@ switch($mode){
         if(isset($_REQUEST['parent']) && !empty($tmp) && (int)$_REQUEST['parent']>=0){
             $param['addWhereList'] = $tmp." = '".(int)$_REQUEST['parent']."'";
         }
-		
+
         $filters = $CRdata->makeFilters($_REQUEST);
         if(!empty($filters)){
             $fs = implode(";", $filters);
             $param['filters'] = 'AND('.$fs.')';
         }
-		
+
         $out=$modx->runSnippet("DocLister",$param);
         break;
     }
